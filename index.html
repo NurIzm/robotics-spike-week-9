@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Роборука</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/start.css">
+<link rel="stylesheet" href="css/lesson.css">
+<link rel="stylesheet" href="css/examples.css">
+<link rel="stylesheet" href="css/blocks.css">
+<link rel="stylesheet" href="css/program.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="topbar__brand" href="#start" aria-label="Роборука, на старт">
+    <span class="topbar__week">Неделя 9</span>
+    <span class="topbar__topic">Манипуляторы и автономия</span>
+  </a>
+  <nav class="beam" aria-label="Разделы урока">
+    <a class="beam__stop" href="#start" data-view="start"><span class="beam__hole"></span><span class="beam__label">Старт</span></a>
+    <a class="beam__stop" href="#lesson" data-view="lesson"><span class="beam__hole"></span><span class="beam__label">Урок</span></a>
+    <a class="beam__stop" href="#examples" data-view="examples"><span class="beam__hole"></span><span class="beam__label">В жизни</span></a>
+    <a class="beam__stop" href="#program" data-view="program"><span class="beam__hole"></span><span class="beam__label">Программа</span></a>
+  </nav>
+</header>
+<main>
+<section id="view-start" class="view" aria-label="Старт">
+<div class="hero">
+  <h1 class="hero__title">Роборука</h1>
+  <div class="hero__stage" role="img" aria-label="Трёхмерная модель Роборуки из набора LEGO SPIKE Prime. Её можно вращать мышью или пальцем."></div>
+  <div class="hero__foot">
+    <dl class="hero__specs">
+      <div><dt>Шагов сборки</dt><dd>28</dd></div>
+      <div><dt>Мотор</dt><dd>1</dd></div>
+      <div><dt>Порт</dt><dd>F</dd></div>
+      <div><dt>Время</dt><dd>1 час</dd></div>
+    </dl>
+    <a class="btn btn--primary hero__go" href="#lesson">Начать урок</a>
+  </div>
+</div>
+
+</section>
+<section id="view-lesson" class="view" aria-label="Урок" hidden>
+<div class="les">
+
+<header class="les-head">
+  <div>
+    <p class="les-head__kicker">Урок: захваты и манипуляторы. Сборка робота «Роборука»</p>
+    <h1>Манипуляторы и автономия</h1>
+  </div>
+  <div class="les-head__mid">
+    <p class="les-head__goal"><b>Цель</b> Сформировать у учащихся представление о назначении захватов и манипуляторов в робототехнике. Сборка робота «Робот рука».</p>
+    <dl class="les-head__facts">
+      <div><dt>Время</dt><dd>1 час</dd></div>
+      <div><dt>Вид работы</dt><dd>Сборка и разборка</dd></div>
+    </dl>
+  </div>
+  <nav class="les-route" aria-labelledby="les-route-title">
+    <h2 id="les-route-title">Что узнаем</h2>
+    <ol>
+      <li><button type="button" data-to="les-what">Что такое манипулятор</button></li>
+      <li><button type="button" data-to="les-grip">Какие бывают захваты</button></li>
+      <li><button type="button" data-to="les-parts">Из чего состоит Роборука</button></li>
+      <li><button type="button" data-to="les-build">Как её собрать и разобрать</button></li>
+      <li><button type="button" data-to="les-auto">Кто решает: человек или робот</button></li>
+      <li><button type="button" data-to="les-quiz">Мини-тест</button></li>
+    </ol>
+  </nav>
+</header>
+
+<section class="les-sec les-what" id="les-what" aria-labelledby="les-what-title">
+  <div class="les-what__head">
+    <h2 id="les-what-title">Манипулятор — это механическая рука робота</h2>
+    <p>Устроен почти как твоя рука. Наведи на любую часть или нажми на неё.</p>
+  </div>
+  <div class="les-pair" id="les-pair">
+    <figure class="les-fig">
+      <figcaption>Рука человека</figcaption>
+      <svg viewBox="0 0 600 470" aria-hidden="true">
+        <path class="hum" d="M58 470C58 360 64 262 112 232C140 214 196 212 224 232C262 262 268 360 268 470Z"/>
+        <rect class="hum" x="126" y="130" width="50" height="104" rx="22"/>
+        <circle class="hum" cx="150" cy="86" r="68"/>
+        <path class="humd" data-pair="brain" d="M104 80c-6-26 16-44 34-42 14-12 42-6 50 10 16 6 24 34 8 48-6 12-24 14-34 8-10 8-30 6-36-4-12 0-20-8-22-20Z"/>
+        <path class="humline" d="M136 58c10 6 8 18 0 24M170 52c-10 8-6 20 4 24"/>
+        <path class="humlimb" stroke-width="70" d="M176 252L322 356"/>
+        <path class="humlimb" stroke-width="54" d="M322 356L452 276"/>
+        <path class="humd" data-pair="muscle" d="M204 256c30-2 72 26 98 62-4 6-14 12-22 14-34-16-70-42-92-58 2-8 8-16 16-18Z"/>
+        <path class="humd" data-pair="muscle" d="M346 326c22-20 56-40 84-52 6 6 10 14 10 20-26 18-58 38-82 50-6-4-10-12-12-18Z"/>
+        <circle class="humj" data-pair="shoulder" cx="176" cy="252" r="46"/>
+        <circle class="humj" data-pair="elbow" cx="322" cy="356" r="36"/>
+        <circle class="humj" data-pair="wrist" cx="452" cy="276" r="29"/>
+        <g class="humh" data-pair="hand">
+          <path class="palm" d="M446 282C456 256 486 254 500 270L500 326C482 344 452 332 446 312Z"/>
+          <path d="M478 270L526 254L562 264M478 326L524 346L560 336"/>
+        </g>
+        <path class="nerve" data-pair="nerve" d="M150 96C154 150 150 200 176 252L322 356L452 276L526 254L560 264"/>
+        <rect class="cube" x="504" y="274" width="52" height="52" rx="4"/>
+      </svg>
+      <button type="button" class="les-tag" data-pair="brain" style="left:25%;top:7%">Мозг</button>
+      <button type="button" class="les-tag" data-pair="nerve" style="left:41%;top:35%">Нервы</button>
+      <button type="button" class="les-tag" data-pair="shoulder" style="left:14%;top:66%">Плечо</button>
+      <button type="button" class="les-tag" data-pair="muscle" style="left:58%;top:49%">Мышцы</button>
+      <button type="button" class="les-tag" data-pair="elbow" style="left:54%;top:93%">Локоть</button>
+      <button type="button" class="les-tag" data-pair="wrist" style="left:75%;top:40%">Запястье</button>
+      <button type="button" class="les-tag" data-pair="hand" style="left:86%;top:83%">Кисть</button>
+    </figure>
+    <figure class="les-fig">
+      <figcaption>Рука робота</figcaption>
+      <svg viewBox="0 0 600 470" aria-hidden="true">
+        <path class="table" d="M0 447H600"/>
+        <g class="rob" data-pair="shoulder">
+          <rect x="386" y="252" width="76" height="172" rx="6"/>
+          <rect x="348" y="420" width="152" height="24" rx="6"/>
+        </g>
+        <path class="roblimb" stroke-width="46" d="M424 252L278 356"/>
+        <path class="roblimb" stroke-width="38" d="M278 356L148 276"/>
+        <circle class="mot" data-pair="muscle" cx="424" cy="252" r="52"/>
+        <circle class="mot" data-pair="muscle" cx="278" cy="356" r="46"/>
+        <circle class="mot" data-pair="muscle" cx="148" cy="276" r="39"/>
+        <circle class="rob" data-pair="shoulder" cx="424" cy="252" r="30"/>
+        <circle class="jnt" data-pair="elbow" cx="278" cy="356" r="26"/>
+        <circle class="jnt" data-pair="wrist" cx="148" cy="276" r="21"/>
+        <rect class="box" data-pair="brain" x="508" y="352" width="84" height="92" rx="10"/>
+        <path class="boxdots" d="M526 376h1M550 376h1M574 376h1M526 398h1M550 398h1M574 398h1"/>
+        <g class="grp" data-pair="hand">
+          <path d="M148 276L124 300" stroke-width="20" fill="none"/>
+          <rect x="102" y="254" width="26" height="92" rx="6"/>
+          <rect x="38" y="254" width="74" height="19" rx="6"/>
+          <rect x="38" y="327" width="74" height="19" rx="6"/>
+        </g>
+        <path class="wire" data-pair="nerve" d="M508 420H424V252L278 356L148 276L116 300"/>
+        <rect class="cube" x="44" y="274" width="52" height="52" rx="4"/>
+      </svg>
+      <button type="button" class="les-tag" data-pair="brain" style="left:89%;top:66%">Контроллер</button>
+      <button type="button" class="les-tag" data-pair="nerve" style="left:58%;top:35%">Провода</button>
+      <button type="button" class="les-tag" data-pair="shoulder" style="left:71%;top:80%">Основание</button>
+      <button type="button" class="les-tag" data-pair="muscle" style="left:42%;top:49%">Моторы</button>
+      <button type="button" class="les-tag" data-pair="elbow" style="left:46%;top:93%">Шарнир</button>
+      <button type="button" class="les-tag" data-pair="wrist" style="left:25%;top:40%">Шарнир</button>
+      <button type="button" class="les-tag" data-pair="hand" style="left:14%;top:83%">Захват</button>
+    </figure>
+    <p class="les-pair__cap" id="les-pair-cap" aria-live="polite"></p>
+  </div>
+</section>
+
+<section class="les-sec les-dof" id="les-dof" aria-labelledby="les-dof-title">
+  <div class="les-dof__text">
+    <h2 id="les-dof-title">Степени свободы</h2>
+    <p>Степень свободы — это одно отдельное движение. Один шарнир с мотором даёт одну степень свободы.</p>
+    <p class="les-dof__try">Попробуй: положи локоть на парту и двигай только предплечьем. Пальцы идут по дуге. Это одна степень свободы.</p>
+    <ul class="les-dofs">
+      <li><span>Роборука</span><i style="--n:1"></i><b>1</b></li>
+      <li><span>Робот на заводе</span><i style="--n:6"></i><b>обычно 6</b></li>
+      <li><span>Рука человека</span><i style="--n:7"></i><b>7</b></li>
+      <li><span>Канадарм2 на МКС</span><i style="--n:7"></i><b>7</b></li>
+    </ul>
+  </div>
+  <div class="les-dof__lab">
+    <fieldset class="les-seg">
+      <legend>Сколько шарниров работает?</legend>
+      <label><input type="radio" name="les-dof-n" value="1" checked><span>1</span></label>
+      <label><input type="radio" name="les-dof-n" value="2"><span>2</span></label>
+      <label><input type="radio" name="les-dof-n" value="3"><span>3</span></label>
+    </fieldset>
+    <svg id="les-dof-svg" viewBox="0 0 640 400" role="img" aria-label="Рука с тремя шарнирами. Голубая зона показывает, куда может дотянуться её кончик.">
+      <path class="les-dof__reach" id="les-dof-reach"/>
+      <path class="table" d="M60 392H580"/>
+      <rect class="les-dof__base" x="284" y="372" width="72" height="20" rx="5"/>
+      <path class="les-dof__arm" id="les-dof-arm"/>
+      <g id="les-dof-joints"><circle r="17"/><circle r="15"/><circle r="12"/></g>
+      <circle class="les-dof__tip" id="les-dof-tip" r="11"/>
+    </svg>
+    <p class="les-dof__note" id="les-dof-note" aria-live="polite"></p>
+    <div class="les-dof__sliders">
+      <label>Плечо<input type="range" min="-80" max="80" data-joint="0"></label>
+      <label>Локоть<input type="range" min="-130" max="130" data-joint="1"></label>
+      <label>Запястье<input type="range" min="-100" max="100" data-joint="2"></label>
+    </div>
+  </div>
+  <p class="les-dof__sum">У Роборуки один мотор, поэтому степень свободы одна: сжать или разжать. Всё остальное делает твоя рука: она поднимает Роборуку и носит её.</p>
+</section>
+
+<section class="les-sec les-grip" id="les-grip" aria-labelledby="les-grip-title">
+  <div class="les-grip__head">
+    <h2 id="les-grip-title">Захват — это «кисть» манипулятора</h2>
+    <p>Одним захватом всё не возьмёшь. Инженеры выбирают его под предмет.</p>
+  </div>
+  <div class="les-bench" data-anim>
+    <article class="les-tool">
+      <svg class="les-g les-g--pinch" viewBox="0 0 300 240" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+        <g class="rig">
+          <rect class="rod" x="141" y="-120" width="18" height="160"/>
+          <rect class="body" x="76" y="34" width="148" height="20" rx="5"/>
+          <path class="finger jl" d="M84 54h22v62l-8 10h-14z"/>
+          <path class="finger jr" d="M216 54h-22v62l8 10h14z"/>
+        </g>
+        <g class="obj">
+          <rect class="cube" x="122" y="176" width="56" height="56" rx="3"/>
+          <path class="cube" d="M130 176v-6h12v6M158 176v-6h12v6"/>
+        </g>
+      </svg>
+      <h3>Пальцевый</h3>
+      <p class="les-tool__mine">Такой у Роборуки</p>
+      <dl>
+        <div><dt>Как держит</dt><dd>Пальцы сжимают предмет с двух сторон.</dd></div>
+        <div><dt>Что берёт</dt><dd>Твёрдое: кубики, детали, коробки.</dd></div>
+        <div><dt>Что не берёт</dt><dd>Хрупкое: раздавит. Слишком широкое: не обхватит.</dd></div>
+      </dl>
+    </article>
+    <article class="les-tool">
+      <svg class="les-g les-g--vac" viewBox="0 0 300 240" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+        <g class="rig">
+          <rect class="rod" x="136" y="-120" width="28" height="160"/>
+          <path class="air" d="M150 66V-120"/>
+          <rect class="body" x="116" y="34" width="68" height="16" rx="4"/>
+          <path class="cup" d="M124 50h52l26 26q2 4-4 4H102q-6 0-4-4z"/>
+        </g>
+        <g class="obj">
+          <rect class="parcel" x="84" y="164" width="132" height="68" rx="3"/>
+          <path class="tape" d="M150 164v68"/>
+          <path class="press" d="M110 262v-20m-8 8 8-8 8 8M150 262v-20m-8 8 8-8 8 8M190 262v-20m-8 8 8-8 8 8"/>
+        </g>
+      </svg>
+      <h3>Вакуумный</h3>
+      <dl>
+        <div><dt>Как держит</dt><dd>Насос откачивает воздух из присоски. Воздух снаружи прижимает предмет.</dd></div>
+        <div><dt>Что берёт</dt><dd>Гладкое и плотное: коробки, стекло, листы.</dd></div>
+        <div><dt>Что не берёт</dt><dd>Сетки и ткань: воздух проходит насквозь.</dd></div>
+      </dl>
+    </article>
+    <article class="les-tool">
+      <svg class="les-g les-g--mag" viewBox="0 0 300 240" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+        <g class="rig">
+          <rect class="rod" x="141" y="-120" width="18" height="160"/>
+          <rect class="body" x="96" y="30" width="108" height="44" rx="6"/>
+          <path class="coil" d="M112 30v44M127 30v44M142 30v44M158 30v44M173 30v44M188 30v44"/>
+          <rect class="core" x="100" y="74" width="100" height="10" rx="2"/>
+          <path class="field" d="M118 96q32 16 64 0M104 110q46 26 92 0"/>
+        </g>
+        <rect class="steel obj" x="100" y="212" width="100" height="20" rx="2"/>
+        <rect class="plastic" x="232" y="192" width="40" height="40" rx="3"/>
+      </svg>
+      <h3>Магнитный</h3>
+      <dl>
+        <div><dt>Как держит</dt><dd>Электромагнит включают, и он притягивает сталь. Выключают, и предмет падает.</dd></div>
+        <div><dt>Что берёт</dt><dd>Железо и сталь: листы, болты, гвозди.</dd></div>
+        <div><dt>Что не берёт</dt><dd>Пластик, дерево, стекло, алюминий: они не магнитятся.</dd></div>
+      </dl>
+    </article>
+    <article class="les-tool">
+      <svg class="les-g les-g--soft" viewBox="0 0 300 240" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+        <g class="obj">
+          <path class="apple" d="M150 170c14-10 44-8 46 24 2 22-16 38-30 38-6 0-10-3-16-3s-10 3-16 3c-14 0-32-16-30-38 2-32 32-34 46-24Z"/>
+          <path class="stalk" d="M150 170c0-8 3-13 9-17"/>
+        </g>
+        <g class="rig">
+          <rect class="rod" x="141" y="-120" width="18" height="160"/>
+          <rect class="body" x="96" y="34" width="108" height="18" rx="5"/>
+          <g class="s1" style="--ox:112px;--oy:52px"><path d="M112 52v30"/><g class="s2" style="--ox:112px;--oy:82px"><path d="M112 82v28"/><g class="s3" style="--ox:112px;--oy:110px"><path d="M112 110v22"/></g></g></g>
+          <g transform="matrix(-1 0 0 1 300 0)"><g class="s1" style="--ox:112px;--oy:52px"><path d="M112 52v30"/><g class="s2" style="--ox:112px;--oy:82px"><path d="M112 82v28"/><g class="s3" style="--ox:112px;--oy:110px"><path d="M112 110v22"/></g></g></g></g>
+        </g>
+      </svg>
+      <h3>Мягкий</h3>
+      <dl>
+        <div><dt>Как держит</dt><dd>Воздух надувает резиновые пальцы. Они изгибаются и обнимают предмет.</dd></div>
+        <div><dt>Что берёт</dt><dd>Хрупкое и неровное: фрукты, яйца, выпечку.</dd></div>
+        <div><dt>Что не берёт</dt><dd>Острое: проткнёт резину. Слишком тяжёлое: выскользнет.</dd></div>
+      </dl>
+    </article>
+  </div>
+</section>
+
+<section class="les-story" id="les-parts" aria-labelledby="les-parts-title">
+  <div class="les-story__steps">
+    <article class="les-step les-step--intro" data-step="intro">
+      <h2 id="les-parts-title">Из чего состоит наша Роборука</h2>
+      <p>Шесть частей, и у каждой своя работа. Листай вниз.</p>
+    </article>
+    <article class="les-step" data-step="hub">
+      <p class="les-step__role">Мозг</p>
+      <h3>Хаб</h3>
+      <p>Хранит программу и командует мотором. На нём кнопки, матрица из 25 светодиодов и шесть портов.</p>
+      <p class="les-step__size"><b>11 × 7</b> модулей. Один модуль: 8 мм, шаг отверстий.</p>
+    </article>
+    <article class="les-step" data-step="frames">
+      <p class="les-step__role">Скелет и ручка</p>
+      <h3>Рамки</h3>
+      <p>Две рамки соединяют хаб с мотором. Их окно работает как ручка: за него Роборуку держат и переносят.</p>
+      <p class="les-step__size"><b>7 × 11</b> модулей каждая</p>
+    </article>
+    <article class="les-step" data-step="motor">
+      <p class="les-step__role">Мышца</p>
+      <h3>Мотор</h3>
+      <p>Получает команду от хаба и поворачивает ось. Внутри у него датчик угла: хаб знает, на сколько градусов мотор повернулся.</p>
+      <p class="les-step__size">Средний мотор, порт <b>F</b></p>
+    </article>
+    <article class="les-step" data-step="linkage">
+      <p class="les-step__role">Передача</p>
+      <h3>Рычаги</h3>
+      <p>Мотор крутит кривошип, короткий рычаг на своей оси, а тот двигает пальцы. Каждый палец — это рычаг: толчок приходит рядом со штифтом, а шина стоит далеко от него. Короткий ход у штифта становится длинным ходом шины.</p>
+      <div class="les-lever-box">
+        <svg class="les-lever" id="les-lever" viewBox="0 0 300 210" role="img" aria-label="Рычаг: у штифта короткий ход, у шины длинный.">
+          <path class="les-lever__arc" d="M240 13A209 209 0 0 1 240 197"/>
+          <path class="les-lever__arc les-lever__arc--short" d="M86 88A38 38 0 0 1 86 122"/>
+          <g class="les-lever__arm">
+            <rect x="34" y="93" width="248" height="24" rx="12"/>
+            <circle class="les-lever__hole" cx="90" cy="105" r="7"/>
+            <circle class="les-lever__tyre" cx="261" cy="105" r="21"/>
+          </g>
+          <circle class="les-lever__pin" cx="52" cy="105" r="9"/>
+        </svg>
+        <div>
+          <p class="les-step__size">От штифта до толчка <b>1</b> модуль, до шины больше <b>5</b>.</p>
+          <label class="les-range">Поверни мотор<input type="range" id="les-grip-range" min="0" max="90" value="0"></label>
+        </div>
+      </div>
+    </article>
+    <article class="les-step" data-step="fingers">
+      <p class="les-step__role">Захват</p>
+      <h3>Пальцы с шинами</h3>
+      <p>Шины здесь не для езды. Резина даёт трение, и кубик не выскальзывает. У гладкого пластика трение меньше.</p>
+      <div class="les-fric" data-anim>
+        <figure>
+          <svg viewBox="0 0 150 120" aria-hidden="true">
+            <rect class="les-fric__pad" x="22" y="8" width="22" height="84" rx="4"/>
+            <rect class="les-fric__pad" x="106" y="8" width="22" height="84" rx="4"/>
+            <rect class="cube les-fric__slip" x="44" y="28" width="62" height="44" rx="3"/>
+          </svg>
+          <figcaption>Гладкий пластик</figcaption>
+        </figure>
+        <figure>
+          <svg viewBox="0 0 150 120" aria-hidden="true">
+            <rect class="les-fric__tyre" x="22" y="8" width="22" height="84" rx="4"/>
+            <rect class="les-fric__tyre" x="106" y="8" width="22" height="84" rx="4"/>
+            <rect class="cube" x="44" y="28" width="62" height="44" rx="3"/>
+          </svg>
+          <figcaption>Резиновая шина</figcaption>
+        </figure>
+      </div>
+    </article>
+    <article class="les-step" data-step="cable">
+      <p class="les-step__role">Нерв</p>
+      <h3>Кабель</h3>
+      <p>Плоский кабель идёт от порта F к мотору. По нему хаб даёт мотору питание и <b class="les-to-motor">команды</b>, а мотор сообщает обратно <b class="les-to-hub">свой угол</b>.</p>
+    </article>
+  </div>
+  <div class="les-story__stage" id="les-story-stage" role="img" aria-label="Трёхмерная модель Роборуки. Часть, о которой идёт речь, выделена цветом."></div>
+</section>
+
+<section class="les-sec les-build" id="les-build" aria-labelledby="les-build-title">
+  <div class="les-build__head">
+    <h2 id="les-build-title">Сборка и разборка</h2>
+    <p>Инструкция есть в приложении SPIKE: <b>Модели → Роборука</b>. В ней 28 шагов, мотор подключаем к <b>порту F</b>.</p>
+  </div>
+  <div class="les-build__bench">
+    <div class="les-build__stage" id="les-build-stage" role="img" aria-label="Трёхмерная модель Роборуки на этапе сборки. Её можно вращать."></div>
+    <div class="les-build__card" aria-live="polite">
+      <p class="les-build__steps"><span id="les-stage-n"></span> <span id="les-stage-steps"></span></p>
+      <h3 id="les-stage-title"></h3>
+      <p id="les-stage-text"></p>
+      <p class="les-build__parts"><b>Детали</b> <span id="les-stage-parts"></span></p>
+      <div class="les-build__nav">
+        <button type="button" class="btn" id="les-stage-prev">Назад</button>
+        <button type="button" class="btn btn--primary" id="les-stage-next">Дальше</button>
+      </div>
+    </div>
+  </div>
+  <ol class="les-rail" id="les-rail" aria-label="Этапы сборки. Каждое отверстие на балке — это один шаг инструкции."></ol>
+  <div class="les-build__take">
+    <label class="les-range">Разобрать<input type="range" id="les-explode" min="0" max="100" value="0"></label>
+    <p>В конце урока, после заданий с программой, разбери модель и разложи детали по ячейкам: штифты к штифтам, балки к балкам.</p>
+  </div>
+</section>
+
+<section class="les-sec les-auto" id="les-auto" aria-labelledby="les-auto-title">
+  <div class="les-auto__head">
+    <h2 id="les-auto-title">Кто решает, что делать?</h2>
+    <p>Манипулятор — это то, чем робот работает. Автономия — это когда он сам решает, что делать. Поэтому наша неделя называется «Манипуляторы и автономия».</p>
+  </div>
+  <ol class="les-ladder">
+    <li>
+      <div class="les-ladder__here">
+        <svg viewBox="0 0 230 92" aria-hidden="true">
+          <path d="M6 16h134a6 6 0 0 1 6 6v10h26l34-28 18 4v72l-18 4-34-28h-26v10a6 6 0 0 1-6 6H6a6 6 0 0 1-6-6V22a6 6 0 0 1 6-6Z" fill="#fff"/>
+          <rect x="6" y="22" width="66" height="48" rx="5" fill="#eceded" stroke="#10202a" stroke-width="2"/>
+          <rect x="6" y="22" width="66" height="9" rx="4" fill="#fed920"/>
+          <circle cx="60" cy="52" r="7" fill="#fff" stroke="#10202a" stroke-width="2"/>
+          <rect x="79" y="25" width="60" height="42" rx="5" fill="none" stroke="#c92e85" stroke-width="9"/>
+          <rect x="143" y="33" width="20" height="26" rx="3" fill="#01adc4"/>
+          <rect x="161" y="35" width="13" height="22" rx="3" fill="#eceded" stroke="#10202a" stroke-width="2"/>
+          <path d="M172 40l26-26M172 52l26 26" stroke="#16151a" stroke-width="7" fill="none"/>
+          <circle cx="207" cy="14" r="10" fill="#16151a"/>
+          <circle cx="207" cy="78" r="10" fill="#16151a"/>
+        </svg>
+        <p><b>Роборука сейчас здесь.</b> Держишь кнопку на хабе, рука сжата. Отпустил, разжалась.</p>
+      </div>
+      <h3>Ручное управление</h3>
+      <p class="les-ladder__who">Решает человек</p>
+      <p>Каждую команду даёт человек. Хирург ведёт инструменты робота, а без него робот не двигается.</p>
+    </li>
+    <li>
+      <h3>Программа</h3>
+      <p class="les-ladder__who">Решает программа, её написал человек</p>
+      <p>Шаги записаны заранее, робот повторяет их сам и не устаёт. Так на автозаводе ставят двери на кузов.</p>
+      <p class="les-ladder__next">Сюда Роборука поднимется в задании «Рука сама» на экране программы.</p>
+    </li>
+    <li>
+      <h3>Автономия</h3>
+      <p class="les-ladder__who">Решает робот</p>
+      <p>Робот сам смотрит датчиками и сам выбирает, что делать. На ферме он видит камерой спелое яблоко и срывает только его.</p>
+      <p class="les-ladder__next">С датчиком расстояния Роборука тоже сможет сама заметить кубик.</p>
+    </li>
+  </ol>
+</section>
+
+<section class="les-sec les-quiz" id="les-quiz" aria-labelledby="les-quiz-title">
+  <div class="les-quiz__head">
+    <h2 id="les-quiz-title">Мини-тест</h2>
+    <p class="les-quiz__pins" id="les-quiz-pins" role="img"></p>
+    <p class="les-quiz__last" id="les-quiz-last"></p>
+  </div>
+  <div class="les-quiz__box" id="les-quiz-box"></div>
+</section>
+
+<footer class="les-foot">
+  <a class="btn btn--primary les-foot__next" href="#examples">Дальше: в жизни</a>
+  <p>LEGO и SPIKE — товарные знаки LEGO Group. Это учебный материал учителя, он не связан с LEGO Group и не одобрен ею.</p>
+</footer>
+
+</div>
+
+</section>
+<section id="view-examples" class="view" aria-label="Примеры из жизни" hidden>
+<div class="ex">
+  <div class="ex__main">
+    <div class="ex__stage" id="ex-stage">
+      <span class="ex__grip" id="ex-grip"></span>
+      <button type="button" class="ex__toggle" id="ex-toggle"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="ex__ico-play" d="M7 4.5v15l13-7.5z"/><path class="ex__ico-pause" d="M6 4h4.5v16H6zM13.5 4H18v16h-4.5z"/></svg></button>
+    </div>
+    <div class="ex__time">
+      <p class="ex__now" id="ex-now"></p>
+      <ol class="ex__steps" id="ex-steps"></ol>
+    </div>
+  </div>
+  <aside class="ex__side">
+    <header class="ex__head">
+      <h1>В жизни</h1>
+      <p>Шесть разных захватов</p>
+    </header>
+    <ul class="ex__list" id="ex-list"></ul>
+    <dl class="ex__facts">
+      <div><dt>Где</dt><dd id="ex-where"></dd></div>
+      <div><dt>Что делает</dt><dd id="ex-does"></dd></div>
+      <div><dt id="ex-gripname">Захват</dt><dd id="ex-how"></dd></div>
+      <div><dt>Датчики</dt><dd id="ex-sensors"></dd></div>
+      <div><dt>Самостоятельность</dt><dd><span class="ex__levels" id="ex-levels"></span><span id="ex-auto"></span></dd></div>
+    </dl>
+    <p class="ex__common"><b>Что общего с Роборукой</b><span id="ex-common"></span></p>
+    <a class="btn btn--primary ex__next" href="#program">Дальше: программа</a>
+  </aside>
+</div>
+
+</section>
+<section id="view-program" class="view" aria-label="Программа" hidden>
+<div class="prog" id="prog">
+  <section class="prog__left" aria-label="Программа из блоков">
+    <div class="tasks">
+      <div class="tasks__tabs" id="task-tabs"></div>
+      <p class="tasks__goal" id="task-goal"></p>
+      <p class="tasks__hint" id="task-hint" hidden></p>
+      <ol class="tasks__steps" id="task-steps" hidden></ol>
+      <div class="tasks__row">
+        <p class="tasks__status" id="task-status" role="status"></p>
+        <div class="tasks__acts">
+          <button type="button" class="tasks__act" id="task-hint-btn" aria-expanded="false">Подсказка</button>
+          <button type="button" class="tasks__act" id="task-solution">Показать решение</button>
+          <button type="button" class="tasks__act" id="task-reset">Сбросить стол</button>
+          <button type="button" class="tasks__act" id="task-restart">Начать заново</button>
+        </div>
+      </div>
+    </div>
+    <div class="prog__ws">
+      <div class="prog__blockly" id="prog-blockly"></div>
+      <div class="prog__tools" id="prog-tools">
+        <button type="button" data-tool="fit" aria-label="Показать все блоки" title="Показать все блоки">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l6 6m0-4.5V9H4.5M21 3l-6 6m0-4.5V9h4.5M3 21l6-6m0 4.5V15H4.5M21 21l-6-6m0 4.5V15h4.5"/></svg>
+        </button>
+        <button type="button" data-tool="out" aria-label="Уменьшить" title="Уменьшить">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="7.5"/><path d="M6.5 10.5h8M16 16l5.5 5.5"/></svg>
+        </button>
+        <button type="button" data-tool="in" aria-label="Увеличить" title="Увеличить">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="7.5"/><path d="M6.5 10.5h8M10.5 6.5v8M16 16l5.5 5.5"/></svg>
+        </button>
+        <span class="prog__toolgap"></span>
+        <button type="button" data-tool="undo" aria-label="Отменить" title="Отменить">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 5 4 9.5 8.5 14M4.5 9.5H15a5.5 5.5 0 0 1 0 11h-3"/></svg>
+        </button>
+        <button type="button" data-tool="redo" aria-label="Вернуть" title="Вернуть">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 5 20 9.5 15.5 14M19.5 9.5H9a5.5 5.5 0 0 0 0 11h3"/></svg>
+        </button>
+      </div>
+      <div class="prog__run">
+        <button type="button" class="prog__round prog__round--stop" id="prog-stop" aria-label="Остановить программу" title="Остановить">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="2"/></svg>
+        </button>
+        <button type="button" class="prog__round prog__round--play" id="prog-play" aria-label="Запустить программу" title="Запустить">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.2v15.6a1 1 0 0 0 1.5.86l12.4-7.8a1 1 0 0 0 0-1.72L8.5 3.34A1 1 0 0 0 7 4.2z"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <div class="prog__split" id="prog-split" role="separator" tabindex="0" aria-orientation="vertical" aria-label="Граница между блоками и моделью. Стрелки влево и вправо двигают её."></div>
+
+  <section class="prog__right" aria-label="Модель">
+    <div class="prog__stage" id="prog-stage">
+      <p class="prog__hud" id="prog-hud" hidden><b id="hud-time"></b><span id="hud-count"></span></p>
+      <div class="pad" id="prog-pad" role="group" aria-label="Двигать руку">
+        <button type="button" data-move="-z" class="pad__up" aria-label="Дальше"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5 5 16h14z"/></svg></button>
+        <button type="button" data-move="-x" class="pad__left" aria-label="Влево"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12 16 5v14z"/></svg></button>
+        <button type="button" data-move="+z" class="pad__down" aria-label="Ближе"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19 5 8h14z"/></svg></button>
+        <button type="button" data-move="+x" class="pad__right" aria-label="Вправо"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12 8 5v14z"/></svg></button>
+        <button type="button" data-move="+y" class="pad__lift" aria-label="Поднять руку">Выше</button>
+        <button type="button" data-move="-y" class="pad__drop" aria-label="Опустить руку">Ниже</button>
+      </div>
+    </div>
+    <div class="hubp">
+      <div class="hubp__hub">
+        <div class="hubp__leds" id="hub-leds" role="img" aria-label="Экран хаба, 5 на 5 огней"></div>
+        <div class="hubp__pill">
+          <button type="button" id="hub-left" aria-label="Левая кнопка хаба"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 12l9-6v12z"/></svg></button>
+          <button type="button" id="hub-center" class="hubp__center" aria-label="Центральная кнопка: запуск и остановка"></button>
+          <button type="button" id="hub-right" aria-label="Правая кнопка хаба"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 12 8 6v12z"/></svg></button>
+        </div>
+      </div>
+      <div class="hubp__side">
+        <div class="hubp__port">
+          <p>Порт F</p>
+          <dl>
+            <dt>Угол</dt><dd><b id="read-angle">0</b> °</dd>
+            <dt>Скорость</dt><dd><b id="read-speed">0</b> %</dd>
+            <dt>Мощность</dt><dd><b id="read-power">0</b> %</dd>
+          </dl>
+        </div>
+        <button type="button" class="btn hubp__shake" id="hub-shake">Встряхнуть</button>
+        <p class="hubp__keys">Мотор двигает только пальцы, руку несёшь ты: <kbd>стрелки</kbd> или <kbd>WASD</kbd>, <kbd>Q</kbd> <kbd>E</kbd> выше и ниже, или тяни модель мышью. <kbd>Пробел</kbd> нажимает левую кнопку.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+</section>
+</main>
+<div id="toasts" class="toasts" role="status" aria-live="polite"></div>
+<script src="vendor/three.min.js"></script>
+<script src="vendor/three-addons.js"></script>
+<script src="vendor/blockly/blockly_compressed_vertical.js"></script>
+<script src="vendor/blockly/blocks_compressed.js"></script>
+<script src="vendor/blockly/blocks_compressed_vertical.js"></script>
+<script src="vendor/blockly/messages.js"></script>
+<script src="vendor/blockly/msg_ru.js"></script>
+<script src="js/core.js"></script>
+<script src="js/robot.js"></script>
+<script src="js/hero.js"></script>
+<script src="js/lesson.js"></script>
+<script src="js/scenes.js"></script>
+<script src="js/examples.js"></script>
+<script src="js/blocks.js"></script>
+<script src="js/vm.js"></script>
+<script src="js/sim.js"></script>
+<script src="js/program.js"></script>
+<script>
+RA.boot();
+// Fonts load after the page works: a school network that hangs on Google must not hold up the lesson.
+document.head.append(Object.assign(document.createElement('link'), { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&family=Unbounded:wght@500;700;900&display=swap' }));
+</script>
+</body>
+</html>

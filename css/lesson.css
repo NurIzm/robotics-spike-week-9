@@ -1,0 +1,435 @@
+/* Lesson: one long page for a projector. Every section takes the form of its idea; colours come from the kit. */
+
+/* At height:100% the body ends after one screen and the sticky top bar scrolls away with it. */
+body[data-view="lesson"] { height: auto; min-height: 100%; }
+
+.les {
+  --pad: clamp(16px, 5vw, 96px);
+  --screen: calc(100vh - var(--topbar-h));
+  --h2: clamp(28px, min(3.6vw, 6.4vh), 72px);
+  --grey: #a9b0b5;
+  --tan: #dcc391;
+  --tan-deep: #c4a96f;
+  font-size: clamp(19px, 0.9vw + 11px, 28px);
+  line-height: 1.42;
+}
+.les h2 { font-size: var(--h2); }
+.les h3 { font-size: calc(var(--h2) * 0.6); }
+.les-sec {
+  display: flex; flex-direction: column; justify-content: center; gap: clamp(16px, 3vh, 36px);
+  min-height: var(--screen);
+  padding: clamp(28px, 6vh, 64px) var(--pad);
+  scroll-margin-top: var(--topbar-h);
+}
+.les input[type="range"] { width: 100%; height: 32px; margin: 0; accent-color: var(--magenta); cursor: pointer; }
+.les-range { display: block; font-weight: 700; }
+
+/* Parts of drawings used in several sections */
+.les .cube { fill: var(--yellow); stroke: var(--ink); stroke-width: 3; }
+.les .table { fill: none; stroke: var(--ink); stroke-width: 6; stroke-linecap: round; }
+
+/* ---------- Header: the same yellow as the start screen, the route is a beam with a hole for each stop ---------- */
+.les-head {
+  display: flex; flex-direction: column; justify-content: space-between; gap: clamp(20px, 4vh, 48px);
+  min-height: var(--screen);
+  padding: clamp(28px, 6vh, 72px) var(--pad);
+  background: var(--yellow);
+}
+.les-head__kicker { font-weight: 700; }
+.les-head h1 { font-size: clamp(33px, min(7.2vw, 13vh), 136px); font-weight: 900; line-height: 1.02; letter-spacing: -0.01em; }
+.les-head__mid { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 16px 48px; }
+.les-head__facts { display: flex; gap: clamp(24px, 3vw, 48px); margin: 0; }
+.les-head__facts dt { font-size: 0.8em; font-weight: 700; }
+.les-head__facts dd { margin: 0; font: 700 1.1em/1.3 var(--font-mono); word-spacing: -0.3em; white-space: nowrap; }
+.les-head__goal { flex: 1 1 26em; max-width: 34em; font-size: 1.1em; line-height: 1.34; }
+.les-head__goal b { display: block; font-size: 0.8em; }
+.les-route h2 { margin-bottom: 14px; font-size: calc(var(--h2) * 0.5); }
+.les-route ol { position: relative; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; }
+.les-route ol::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 32px; border-radius: 16px;
+  background: var(--magenta); box-shadow: inset 0 -3px 0 var(--magenta-deep);
+}
+.les-route button {
+  position: relative; display: block; width: 100%; padding: 42px 16px 4px 6px;
+  border: 0; background: none; color: var(--ink);
+  font-size: 0.86em; font-weight: 700; line-height: 1.22; text-align: left; cursor: pointer;
+}
+.les-route button:hover { text-decoration: underline; text-underline-offset: 3px; }
+.les-route button::before {
+  content: ""; position: absolute; left: 6px; top: 5px; width: 22px; height: 22px; border-radius: 50%;
+  background: var(--magenta-deep); box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.45), 0 0 0 2px rgba(255, 255, 255, 0.28);
+}
+.les-route li:first-child button::before { left: 8px; }
+
+/* ---------- Human arm against robot arm: one pose, two bodies, facing each other ---------- */
+.les-what { background: var(--paper); }
+.les-what__head p { max-width: 44em; margin-top: 10px; color: var(--ink-2); }
+.les-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px clamp(16px, 3vw, 48px); justify-items: center; }
+.les-fig { position: relative; width: min(100%, calc((var(--screen) - 2.6 * var(--h2) - 9.5em) * 1.277)); margin: 0; }
+.les-fig svg { display: block; width: 100%; height: auto; }
+.les-fig figcaption { position: absolute; top: 0; font-weight: 700; color: var(--ink-2); }
+.les-fig:first-child figcaption { right: 0; }
+.les-fig:nth-child(2) figcaption { left: 0; }
+.les-fig [data-pair] { cursor: pointer; transition: fill 0.15s, stroke 0.15s; }
+.les-tag {
+  position: absolute; transform: translate(-50%, -50%);
+  min-height: 32px; padding: 2px 12px;
+  border: 2px solid var(--ink); border-radius: 16px;
+  background: var(--paper); color: var(--ink);
+  font-size: clamp(13px, 1.1vw, 20px); font-weight: 700; white-space: nowrap;
+}
+.les-tag.is-on { border-color: var(--magenta-deep); background: var(--magenta); color: #fff; }
+.les-pair__cap { grid-column: 1 / -1; justify-self: stretch; min-height: 1.6em; padding: 8px 16px; background: var(--mist); text-align: center; }
+.les-pair__cap b { font-weight: 800; color: var(--magenta-deep); }
+
+.les-fig .hum { fill: var(--tan); }
+.les-fig .humlimb { fill: none; stroke: var(--tan); stroke-linecap: round; }
+.les-fig .humd { fill: var(--tan-deep); }
+.les-fig .humline { fill: none; stroke: var(--tan); stroke-width: 5; stroke-linecap: round; pointer-events: none; }
+.les-fig .humj { fill: var(--tan); stroke: var(--tan-deep); stroke-width: 3; }
+.les-fig .humh { fill: var(--tan); stroke: var(--tan); }
+.les-fig .humh path { fill: none; stroke-width: 19; stroke-linecap: round; stroke-linejoin: round; }
+.les-fig .humh .palm { fill: inherit; stroke-width: 2; }
+.les-fig .nerve, .les-fig .wire { fill: none; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+.les-fig .nerve { stroke: #fff; }
+.les-fig .wire { stroke: var(--yellow); }
+.les-fig .rob { fill: var(--grey); }
+.les-fig .roblimb { fill: none; stroke: var(--black); stroke-linecap: round; }
+.les-fig .mot { fill: var(--azure); }
+.les-fig .jnt { fill: #fff; stroke: var(--black); stroke-width: 6; }
+.les-fig .box { fill: var(--yellow); stroke: var(--ink); stroke-width: 4; }
+.les-fig .boxdots { fill: none; stroke: var(--ink); stroke-width: 9; stroke-linecap: round; pointer-events: none; }
+.les-fig .grp { fill: var(--black); stroke: var(--black); }
+.les-fig .grp rect { stroke: none; }
+.les-fig .is-on.hum, .les-fig .is-on.humd, .les-fig .is-on.humj, .les-fig .is-on.rob, .les-fig .is-on.mot, .les-fig .is-on.jnt, .les-fig .is-on.box, .les-fig .is-on.humh, .les-fig .is-on.grp { fill: var(--magenta); }
+.les-fig .is-on.humj, .les-fig .is-on.humh, .les-fig .is-on.grp, .les-fig .is-on.nerve, .les-fig .is-on.wire { stroke: var(--magenta); }
+.les-fig .is-on.jnt { stroke: var(--magenta-deep); }
+.les-fig .is-on.box { stroke: var(--magenta-deep); }
+.les-fig .is-on.grp path { fill: none; }
+.les-fig .is-on.nerve, .les-fig .is-on.wire { stroke-width: 11; }
+
+/* ---------- Degrees of freedom: the holes of a 7-hole beam count them ---------- */
+.les-dof { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 12px clamp(24px, 4vw, 72px); align-content: center; background: var(--mist); }
+.les-dof__text { display: flex; flex-direction: column; gap: 12px; }
+.les-dof__try { color: var(--ink-2); }
+.les-dof__lab { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.les-dof__lab svg { display: block; width: 100%; height: auto; max-height: 44vh; }
+.les-dof__reach { fill: none; stroke: var(--azure); stroke-linecap: round; opacity: 0.4; }
+.les-dof__base { fill: var(--ink); }
+.les-dof__arm { fill: none; stroke: var(--ink); stroke-width: 17; stroke-linecap: round; stroke-linejoin: round; }
+#les-dof-joints circle { fill: #fff; stroke: var(--ink); stroke-width: 6; }
+#les-dof-joints circle.is-on { fill: var(--magenta); }
+.les-dof__tip { fill: var(--yellow); stroke: var(--ink); stroke-width: 4; }
+.les-dof__note { min-height: 1.4em; font-weight: 700; }
+.les-dof__sliders { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.les-dof__sliders label { font-size: 0.8em; font-weight: 700; }
+.les-dof__sliders input:disabled { accent-color: var(--line); cursor: not-allowed; opacity: 0.6; }
+.les-dof__sum { grid-column: 1 / -1; padding: 10px 16px; border-left: 8px solid var(--magenta); background: var(--paper); font-weight: 600; }
+
+.les-seg { margin: 0; padding: 0; border: 0; }
+.les-seg legend { float: left; margin-right: 12px; padding: 0; font-weight: 700; line-height: 44px; }
+.les-seg label { position: relative; float: left; margin-right: 8px; cursor: pointer; }
+.les-seg input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+.les-seg span {
+  display: grid; place-items: center; width: 44px; height: 44px;
+  border: 2px solid var(--ink); border-radius: 50%;
+  background: var(--paper); font: 700 20px/1 var(--font-mono);
+}
+.les-seg input:checked + span { background: var(--magenta); border-color: var(--magenta-deep); color: #fff; }
+.les-seg input:focus-visible + span { outline: 3px solid var(--azure); outline-offset: 2px; }
+
+.les-dofs { display: grid; gap: 4px; margin: 4px 0 0; padding: 0; list-style: none; font-size: 0.86em; }
+.les-dofs li { display: grid; grid-template-columns: minmax(0, 1fr) auto 5.2em; align-items: center; gap: 12px; }
+.les-dofs i {
+  --s: clamp(18px, 2vw, 28px);
+  position: relative; display: block; width: calc(var(--s) * 7); height: var(--s);
+  border-radius: calc(var(--s) / 2);
+  background: radial-gradient(circle, var(--magenta-deep) 32%, transparent 34%) 0 0 / var(--s) var(--s) repeat-x, var(--magenta);
+}
+.les-dofs i::before {
+  content: ""; position: absolute; inset: 0 auto 0 0; width: calc(var(--s) * var(--n));
+  background: radial-gradient(circle, var(--yellow) 42%, transparent 44%) 0 0 / var(--s) var(--s) repeat-x;
+}
+.les-dofs b { font: 700 1em/1 var(--font-mono); white-space: nowrap; }
+
+/* ---------- Grippers: one long bench, the same motion four ways, rows line up for comparing ---------- */
+.les-grip { background: var(--paper); }
+.les-grip__head p { margin-top: 8px; color: var(--ink-2); }
+.les-bench { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(5, auto); }
+.les-tool { position: relative; display: grid; grid-row: span 5; grid-template-rows: subgrid; gap: 0; min-width: 0; }
+.les-tool + .les-tool { border-left: 1px solid var(--line); }
+.les-tool h3 { padding: 8px clamp(8px, 1vw, 16px) 2px; }
+.les-tool__mine {
+  position: absolute; left: 10px; top: 10px; padding: 3px 10px; border-radius: 8px;
+  background: var(--magenta); color: #fff; font-size: 0.72em; font-weight: 700;
+}
+.les-tool dl { display: contents; }
+.les-tool dl > div { padding: 5px clamp(8px, 1vw, 16px); font-size: 0.84em; line-height: 1.25; }
+.les-tool dt { font-weight: 800; }
+.les-tool dd { margin: 0; color: var(--ink-2); }
+
+.les-g {
+  --down: 96px; --rise: -76px; --T: 5.6s;
+  display: block; width: 100%; height: clamp(140px, 22vh, 300px); overflow: hidden;
+  background: var(--mist); border-bottom: 6px solid var(--ink);
+}
+.les-g--vac { --down: 84px; }
+.les-g--mag { --down: 90px; }
+.les-g--soft { --down: 62px; }
+.les-g .rod { fill: var(--grey); }
+.les-g .body { fill: var(--ink); }
+.les-g .finger { fill: var(--black); }
+.les-g .cup { fill: var(--azure); }
+.les-g .parcel { fill: var(--tan); stroke: var(--ink); stroke-width: 3; }
+.les-g .tape { fill: none; stroke: var(--ink); stroke-width: 10; opacity: 0.25; }
+.les-g .air { fill: none; stroke: #fff; stroke-width: 8; stroke-linecap: round; stroke-dasharray: 1 16; }
+.les-g .press { fill: none; stroke: var(--azure-deep); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.les-g .coil { fill: none; stroke: var(--magenta); stroke-width: 8; }
+.les-g .core { fill: var(--grey); }
+.les-g .field { fill: none; stroke: var(--magenta); stroke-width: 4; stroke-linecap: round; stroke-dasharray: 2 10; }
+.les-g .steel { fill: #8b9499; stroke: var(--ink); stroke-width: 3; }
+.les-g .plastic { fill: var(--yellow); stroke: var(--ink); stroke-width: 3; }
+.les-g .apple { fill: var(--magenta); }
+.les-g .stalk { fill: none; stroke: var(--ink); stroke-width: 5; stroke-linecap: round; }
+.les-g--soft .s1 path, .les-g--soft .s2 path, .les-g--soft .s3 path { fill: none; stroke: var(--azure); stroke-width: 24; stroke-linecap: round; }
+
+/* The resting pose is the middle of the loop: the object held. With reduced motion it simply stays there. */
+.les-g .rig { transform: translateY(calc(var(--down) + var(--rise))); }
+.les-g .obj { transform: translateY(var(--rise)); }
+.les-g .jl { --j: 20px; transform: translateX(var(--j)); }
+.les-g .jr { --j: -20px; transform: translateX(var(--j)); }
+.les-g--mag .obj { transform: translateY(-114px); }
+.les-g--vac .cup { transform: scaleY(0.84); transform-origin: 150px 50px; }
+.les-g--soft .s1 { --o: 20deg; --c: -2deg; }
+.les-g--soft .s2 { --o: 6deg; --c: -26deg; }
+.les-g--soft .s3 { --o: 4deg; --c: -30deg; }
+.les-g--soft .s1, .les-g--soft .s2, .les-g--soft .s3 { transform-origin: var(--ox) var(--oy); transform: rotate(var(--c)); }
+
+.is-live .les-g .rig { animation: les-rig var(--T) ease-in-out infinite; }
+.is-live .les-g .obj { animation: les-obj var(--T) ease-in-out infinite; }
+.is-live .les-g .jl, .is-live .les-g .jr { animation: les-jaw var(--T) ease-in-out infinite; }
+.is-live .les-g--mag .obj { animation: les-snap var(--T) ease-in infinite; }
+.is-live .les-g--mag .coil, .is-live .les-g--mag .field { animation: les-mag var(--T) step-end infinite; }
+.is-live .les-g--vac .cup { animation: les-cup var(--T) ease-in-out infinite; }
+.is-live .les-g--vac .air { animation: les-flow 0.5s linear infinite, les-hold var(--T) linear infinite; }
+.is-live .les-g--vac .press { animation: les-hold var(--T) linear infinite; }
+.is-live .les-g--soft .s1, .is-live .les-g--soft .s2, .is-live .les-g--soft .s3 { animation: les-curl var(--T) ease-in-out infinite; }
+
+@keyframes les-rig {
+  0%, 6% { transform: translateY(0); }
+  22%, 34% { transform: translateY(var(--down)); }
+  50%, 64% { transform: translateY(calc(var(--down) + var(--rise))); }
+  80%, 90% { transform: translateY(var(--down)); }
+  100% { transform: translateY(0); }
+}
+@keyframes les-obj {
+  0%, 34% { transform: translateY(0); }
+  50%, 64% { transform: translateY(var(--rise)); }
+  80%, 100% { transform: translateY(0); }
+}
+@keyframes les-jaw {
+  0%, 22% { transform: translateX(0); }
+  32%, 80% { transform: translateX(var(--j)); }
+  90%, 100% { transform: translateX(0); }
+}
+/* The magnet never touches the plate: it jumps up when the current comes on and falls when it goes off. */
+@keyframes les-snap {
+  0%, 28% { transform: translateY(0); }
+  31%, 34% { transform: translateY(-38px); }
+  50%, 64% { transform: translateY(-114px); }
+  71%, 100% { transform: translateY(0); }
+}
+@keyframes les-mag { 0% { opacity: 0.22; } 27% { opacity: 1; } 65% { opacity: 0.22; } }
+@keyframes les-cup { 0%, 26% { transform: none; } 34%, 80% { transform: scaleY(0.84); } 88%, 100% { transform: none; } }
+@keyframes les-flow { to { stroke-dashoffset: 17; } }
+@keyframes les-hold { 0%, 30% { opacity: 0; } 36%, 78% { opacity: 1; } 84%, 100% { opacity: 0; } }
+@keyframes les-curl {
+  0%, 22% { transform: rotate(var(--o)); }
+  34%, 80% { transform: rotate(var(--c)); }
+  90%, 100% { transform: rotate(var(--o)); }
+}
+
+/* ---------- Scrollytelling: text scrolls, the model stays ---------- */
+.les-story { display: grid; grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr); background: var(--mist); scroll-margin-top: var(--topbar-h); }
+.les-story__stage { position: sticky; top: var(--topbar-h); height: var(--screen); }
+/* The model is longer than this column: the far end fades into the page instead of stopping at a line. */
+.les-story__stage canvas { -webkit-mask-image: linear-gradient(90deg, transparent, #000 48px); mask-image: linear-gradient(90deg, transparent, #000 48px); }
+.les-step {
+  display: flex; flex-direction: column; justify-content: center; gap: 10px;
+  min-height: 92vh; padding: 32px clamp(16px, 2.4vw, 48px) 32px var(--pad);
+  opacity: 0.3; transition: opacity 0.3s;
+}
+.les-step.is-now { opacity: 1; }
+.les-step h3 { font-size: calc(var(--h2) * 0.92); }
+.les-step__role { font-weight: 800; color: var(--magenta-deep); }
+.les-step__size { color: var(--ink-2); font-size: 0.9em; }
+.les-step__size b { font-family: var(--font-mono); color: var(--ink); }
+
+.les-lever-box { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr); gap: 16px; align-items: center; }
+.les-lever { --a: 26; display: block; width: 100%; height: auto; }
+.les-to-motor { color: var(--magenta-deep); }
+.les-to-hub { color: var(--azure-deep); }
+.les-lever__arc { fill: none; stroke: var(--magenta); stroke-width: 5; stroke-dasharray: 2 9; stroke-linecap: round; }
+.les-lever__arc--short { stroke-width: 7; stroke-dasharray: none; }
+.les-lever__arm { fill: var(--black); transform: rotate(calc(var(--a) * -1deg)); transform-origin: 52px 105px; }
+.les-lever__hole { fill: var(--azure); }
+.les-lever__tyre { fill: #3a3d44; stroke: var(--black); stroke-width: 6; stroke-dasharray: 5 3; }
+.les-lever__pin { fill: var(--tan-deep); stroke: var(--ink); stroke-width: 3; }
+
+.les-fric { display: flex; gap: 20px; max-width: 420px; }
+.les-fric figure { flex: 1; margin: 0; font-size: 0.8em; font-weight: 700; }
+.les-fric svg { display: block; width: 100%; height: auto; }
+.les-fric__pad { fill: #cfd6da; stroke: var(--ink); stroke-width: 3; }
+.les-fric__tyre { fill: var(--black); }
+.les-fric__slip { transform: translateY(38px); }
+.is-live .les-fric__slip { animation: les-slip 3.2s ease-in infinite; }
+@keyframes les-slip {
+  0%, 30% { transform: translateY(0); opacity: 1; }
+  62% { transform: translateY(38px); opacity: 1; }
+  80%, 100% { transform: translateY(38px); opacity: 0; }
+}
+
+/* ---------- Build: a beam with one hole per instruction step ---------- */
+.les-build { background: var(--paper); }
+.les-build__head p { margin-top: 8px; }
+.les-build__bench { display: grid; grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr); gap: clamp(16px, 3vw, 48px); align-items: stretch; }
+.les-build__stage { position: relative; min-height: clamp(240px, 42vh, 640px); background: var(--mist); cursor: grab; }
+.les-build__stage:active { cursor: grabbing; }
+.les-build__card { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.les-build__steps { font: 700 0.86em/1.2 var(--font-mono); color: var(--magenta-deep); }
+.les-build__parts { font-size: 0.86em; line-height: 1.28; color: var(--ink-2); }
+.les-build__parts b { display: block; color: var(--ink); }
+.les-build__nav { display: flex; gap: 12px; margin-top: auto; padding-top: 8px; }
+.les-build__nav .btn { flex: 1; padding: 0 12px; }
+.les-build__nav .btn:disabled { opacity: 0.4; cursor: default; }
+
+.les-rail { display: flex; gap: 2px; margin: 0; padding: 0; list-style: none; }
+.les-rail li { min-width: 34px; }
+.les-rail button {
+  display: flex; align-items: center; justify-content: space-around; width: 100%; height: clamp(30px, 3.4vw, 44px); padding: 0 2px;
+  border: 0; background: var(--magenta); cursor: pointer;
+  box-shadow: inset 0 -3px 0 var(--magenta-deep);
+}
+.les-rail li:first-child button { border-radius: 22px 0 0 22px; }
+.les-rail li:last-child button { border-radius: 0 22px 22px 0; }
+.les-rail button:hover { background: #d94494; }
+.les-rail i {
+  display: block; flex: 0 1 auto; width: clamp(8px, 1.9vw, 26px); aspect-ratio: 1; border-radius: 50%;
+  background: var(--magenta-deep); box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.28);
+}
+.les-rail .is-done i { background: radial-gradient(circle at 40% 35%, #fff2a8, var(--yellow) 60%); }
+.les-rail .is-now button { background: var(--ink); box-shadow: none; }
+.les-rail .is-now i { background: radial-gradient(circle at 40% 35%, #fff2a8, var(--yellow) 60%); }
+.les-rail span { display: block; padding-top: 4px; font: 500 clamp(11px, 1vw, 16px)/1 var(--font-mono); color: var(--ink-2); text-align: center; white-space: nowrap; }
+.les-rail .is-now span { color: var(--ink); font-weight: 700; }
+
+.les-build__take { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: clamp(16px, 3vw, 48px); align-items: center; }
+.les-build__take p { font-size: 0.86em; line-height: 1.28; color: var(--ink-2); }
+
+/* ---------- Ladder: the higher the step, the more the robot decides ---------- */
+.les-auto { background: var(--magenta); color: #fff; }
+.les-auto__head p { max-width: 42em; margin-top: 10px; }
+.les-ladder { --rise: clamp(56px, 11vh, 120px); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3px; margin: 0; padding: 0; list-style: none; color: var(--ink); }
+.les-ladder li { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 16px clamp(12px, 1.6vw, 24px) 18px; background: var(--paper); font-size: 0.9em; line-height: 1.3; }
+.les-ladder li:nth-child(1) { margin-top: calc(var(--rise) * 2); }
+.les-ladder li:nth-child(2) { margin-top: var(--rise); background: var(--yellow); }
+.les-ladder li:nth-child(3) { background: var(--azure); }
+.les-ladder__who { font-weight: 800; }
+.les-ladder__next { margin-top: auto; padding-top: 6px; border-top: 2px dashed var(--ink); font-weight: 600; }
+.les-ladder__here { position: absolute; left: 0; right: 0; bottom: 100%; display: flex; align-items: flex-end; gap: 12px; padding-bottom: 8px; color: #fff; line-height: 1.2; font-size: 0.9em; }
+.les-ladder__here svg { flex: none; width: clamp(110px, 12vw, 180px); height: auto; }
+
+/* ---------- Quiz ---------- */
+.les-quiz { background: var(--yellow); }
+.les-quiz__head { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 24px; }
+.les-quiz__pins { display: flex; gap: 8px; }
+.les-quiz__pins i {
+  display: block; width: 26px; height: 26px; border-radius: 50%;
+  background: var(--paper); box-shadow: inset 0 0 0 3px var(--ink);
+}
+.les-quiz__pins i.is-now { box-shadow: inset 0 0 0 6px var(--ink); }
+.les-quiz__pins i.is-right { background: var(--ok); }
+.les-quiz__pins i.is-wrong { background: linear-gradient(45deg, transparent 43%, #fff 43% 57%, transparent 57%), var(--warn); }
+.les-quiz__last { font-weight: 600; }
+.les-quiz__box { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px clamp(24px, 4vw, 72px); align-items: start; min-height: 21em; }
+.les-quiz__ask { display: flex; flex-direction: column; gap: 14px; }
+.les-quiz__q { font: 800 calc(var(--h2) * 0.84)/1.16 var(--font-body); }
+.les-opts { display: grid; gap: 12px; }
+.les-opt {
+  display: flex; align-items: center; width: 100%; min-height: 60px; padding: 10px 20px;
+  border: 3px solid var(--ink); border-radius: 12px; background: var(--paper); color: var(--ink);
+  font-size: 1.05em; font-weight: 700; line-height: 1.2; text-align: left; cursor: pointer;
+  box-shadow: 0 3px 0 var(--ink);
+}
+.les-opt:hover:enabled { transform: translateY(1px); box-shadow: 0 2px 0 var(--ink); }
+.les-opt:disabled { cursor: default; box-shadow: none; }
+.les-opt.is-right { background: var(--ok); color: #fff; }
+.les-opt.is-wrong { background: var(--warn); color: #fff; }
+.les-opt.is-right::after, .les-opt.is-wrong::after { margin-left: auto; padding-left: 12px; font-size: 0.72em; }
+.les-opt.is-right::after { content: "Верно"; }
+.les-opt.is-wrong::after { content: "Твой ответ"; }
+.les-quiz__why b { font-weight: 800; }
+.les-quiz__foot { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.les-quiz__end { display: flex; flex-direction: column; gap: 14px; grid-column: 1 / -1; }
+.les-quiz__score { font: 700 clamp(64px, 11vw, 160px)/1 var(--font-mono); word-spacing: -0.3em; }
+
+.les-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; padding: 28px var(--pad); background: var(--paper); }
+.les-foot__next { min-height: 56px; padding: 0 32px; font-size: 19px; }
+.les-foot p { flex: 1 1 320px; max-width: 44em; font-size: 15px; line-height: 1.35; color: var(--ink-2); }
+
+/* ---------- Narrow screens ---------- */
+@media (max-width: 1100px) {
+  .les-route ol { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 14px; }
+  .les-route ol::before { display: none; }
+  .les-route button { padding: 0 8px 0 40px; }
+  .les-route button::before, .les-route li:first-child button::before { left: 6px; top: 0; background: var(--magenta); }
+}
+@media (max-width: 860px) {
+  .les-sec { min-height: 0; }
+  .les-head { min-height: 0; }
+  .les-route ol { grid-template-columns: minmax(0, 1fr); }
+
+  .les-pair { grid-template-columns: minmax(0, 1fr); }
+  .les-fig { width: 100%; }
+  .les-pair__cap { order: 3; position: sticky; bottom: 8px; }
+
+  .les-dof { grid-template-columns: minmax(0, 1fr); }
+  .les-dof__lab svg { max-height: none; }
+
+  .les-bench { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; row-gap: 20px; }
+  .les-tool:nth-child(3) { border-left: 0; }
+
+  .les-story { display: flex; flex-direction: column; }
+  .les-story__stage { order: -1; z-index: 2; height: 42vh; background: var(--mist); border-bottom: 1px solid var(--line); }
+  .les-story__stage canvas { -webkit-mask-image: none; mask-image: none; }
+  .les-step { min-height: 62vh; padding: 24px 16px; justify-content: flex-start; }
+  .les-step--intro { min-height: 34vh; }
+  .les-lever-box { grid-template-columns: minmax(0, 150px) minmax(0, 1fr); }
+
+  .les-build__bench { grid-template-columns: minmax(0, 1fr); }
+  .les-build__stage { min-height: 300px; }
+  .les-build__take { grid-template-columns: minmax(0, 1fr); }
+
+  .les-ladder { grid-template-columns: minmax(0, 1fr); }
+  .les-ladder li:nth-child(1), .les-ladder li:nth-child(2) { margin-top: 0; }
+  .les-ladder__here { position: static; color: var(--ink); order: 9; padding: 8px 0 0; }
+  .les-quiz__box { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+}
+@media (max-width: 560px) {
+  .les-bench { grid-template-columns: minmax(0, 1fr); }
+  .les-tool { display: flex; flex-direction: column; border-left: 0 !important; }
+  .les-tool h3, .les-tool dl > div { padding-inline: 0; }
+  .les-dof__sliders { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .les-seg legend { float: none; line-height: 1.3; margin-bottom: 6px; }
+  .les-dofs { font-size: 16px; }
+  .les-dofs li { grid-template-columns: minmax(0, 1fr) auto 4.6em; gap: 8px; }
+  .les-dofs i { --s: 16px; }
+  .les-lever-box { grid-template-columns: minmax(0, 1fr); }
+  .les-lever { max-width: 200px; }
+}
+
+@media (max-width: 860px) {
+  .les-route ol { row-gap: 0; }
+  .les-route button { padding-block: 12px; }
+  .les-route button::before, .les-route li:first-child button::before { top: 12px; }
+}

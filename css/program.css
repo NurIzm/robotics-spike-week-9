@@ -151,3 +151,5 @@
   .prog__tools { left: auto; right: 12px; bottom: 80px; width: 104px; flex-wrap: wrap; justify-content: flex-end; }
   .prog__toolgap { display: none; }
 }
+
+@media (min-width: 900px) { body[data-view="program"] .toasts { left: auto; right: 12px; bottom: auto; top: calc(var(--topbar-h) + 12px); transform: none; width: min(420px, 38vw); } }

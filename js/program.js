@@ -21,10 +21,10 @@
       hint: 'Наведи кольцо на середину кубика, опусти руку клавишей E, держи пробел, подними клавишей Q. Над зоной Б отпусти пробел.' },
     { title: 'Построй башню', xml: () => RA.SOLUTION_XML, limit: 180, ready: 'Запусти программу из задания «Испытай руку». Таймер пойдёт с первым кубиком.',
       goal: 'Поставь в зоне Б как можно больше кубиков друг на друга за 3 минуты. Башня из трёх засчитывается. Упала? Построй заново.',
-      hint: 'Подними руку выше башни, веди кольцо на верхний кубик и только потом отпускай. Если кубик опирается меньше чем на 40 %, он соскользнёт.' },
-    { title: 'Рука сама', xml: () => AUTO_XML, ready: 'Запусти программу и не трогай кнопки хаба.',
+      hint: 'Подними руку выше башни, веди кольцо на верхний кубик и только потом отпускай. Если кубик опирается меньше чем на 40 %, он соскользнёт. Если опускал кубик до конца, сначала подними руку клавишей Q и только потом уводи её.' },
+    { title: 'Рука сама', xml: () => AUTO_XML, ready: 'Перетащи две подпрограммы с кнопками в палитру, они здесь не нужны. Потом запусти и не трогай хаб.',
       goal: 'Рука работает по программе, без кнопок. При запуске она сжимается, на хабе загорается картинка, через 2 секунды рука разжимается и звучит сигнал.',
-      hint: 'Собери всё под блоком «когда запускается подпрограмма». Против часовой рука сжимается, по часовой разжимается. Картинка лежит в «Подсветке», ожидание в «Управлении», сигнал в «Звуке».' },
+      hint: 'Сначала убери подпрограммы «когда кнопка…» в палитру. Потом собери всё под блоком «когда запускается подпрограмма». Против часовой рука сжимается, по часовой разжимается. Картинка лежит в «Подсветке», ожидание в «Управлении», сигнал в «Звуке».' },
   ];
   const AUTO_STEPS = ['Рука сжалась', 'Картинка', 'Пауза 2 с', 'Рука разжалась', 'Сигнал'];
   const AUTO_MISSING = ['Рука не сжалась: нужен мотор F против часовой.', 'Картинка не загорелась после сжатия.', 'Рука не разжалась.', 'Рука не разжалась.', 'Сигнала после разжатия не было.'];
@@ -180,7 +180,7 @@
       auto = { step: 0, at: 0, closed: 0, early: false };
       sim.motor.closing = false;        // a hand left closed by the last run does not count
       paintAuto();
-      say('Смотрю, что делает рука.');
+      say('Смотрю, что делает рука. Нажми стоп, чтобы узнать итог.');
     } else if (auto) {
       const a = auto;
       auto = null;
@@ -216,10 +216,15 @@
       $('#hub-' + e.side).classList.toggle('is-pressed', e.state === 'pressed');
       if (auto) auto.touched = true;
       if (!vm.running) {
-        if (e.state === 'pressed') RA.toast('Программа не запущена. Нажми круглую кнопку запуска.');
+        const noHat = !bl.workspace.getTopBlocks(false).some((b) => b.type === 'flipperevents_whenButton');
+        if (e.state === 'pressed') RA.toast(task < 3 && noHat ? 'В программе нет блока «когда кнопка влево». Нажми «Показать решение».' : 'Программа не запущена. Нажми круглую кнопку запуска.');
       } else if (task < 3 && e.side === 'left') {
-        if (e.state === 'pressed') Object.assign(release, { pressed: true, low: sim.motor.pos, at: 0 });
-        else if (release.pressed) Object.assign(release, { pressed: false, at: performance.now() });
+        if (e.state === 'pressed') Object.assign(release, { pressed: true, low: sim.motor.pos, at: 0, t0: performance.now() });
+        else if (release.pressed) {
+          const quick = performance.now() - release.t0 < 300;
+          Object.assign(release, { pressed: false, at: quick ? 0 : performance.now() });
+          if (quick && !task) say('Кнопку надо подержать: нажми, подожди секунду и отпусти.', 'warn');
+        }
       }
     }
   };
@@ -322,7 +327,7 @@
     $('#prog-tools').onclick = (e) => {
       const b = e.target.closest('[data-tool]'), ws = bl.workspace;
       if (!b) return;
-      ({ fit: () => ws.zoomToFit(), out: () => ws.zoomCenter(-1), in: () => ws.zoomCenter(1), undo: () => ws.undo(false), redo: () => ws.undo(true) })[b.dataset.tool]();
+      ({ fit: () => { ws.zoomToFit(); ws.setScale(ws.scale * 0.75); ws.scrollCenter(); }, out: () => ws.zoomCenter(-1), in: () => ws.zoomCenter(1), undo: () => ws.undo(false), redo: () => ws.undo(true) })[b.dataset.tool]();
     };
 
     ['left', 'right'].forEach((side) => {

@@ -503,6 +503,7 @@
       drive('stop', {});
       Object.assign(M, { pos: START_POSE, vel: 0, want: 0, low: -TRAVEL });
       arm.setAngle(M.pos);
+      if (stage.controls) { const d = camera.position.distanceTo(stage.target); camera.position.copy(stage.target).add(new T.Vector3(...VIEW).setLength(d)); stage.controls.update(); }
       draw();
     };
 

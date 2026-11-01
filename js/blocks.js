@@ -11,7 +11,7 @@
     OPERATORS_CONTAINS: '%1 содержит %2 ?', OPERATORS_ROUND: 'округлить %1', OPERATORS_AND: '%1 и %2',
     OPERATORS_OR: '%1 или %2', OPERATORS_NOT: 'не %1', NEW_VARIABLE: 'Создать переменную',
     NEW_LIST: 'Создать список', NEW_PROCEDURE: 'Создать блок', SOUND_EFFECTS_PAN: 'панорамирование влево/вправо',
-    SOUND_SETVOLUMETO: 'установить громкость %1 %', DELETE_X_BLOCKS: 'Удалить блоки: %1', DELETE_ALL_BLOCKS: 'Удалить все блоки (%1)?',
+    SOUND_SETVOLUMETO: 'установить громкость %1 %', DELETE_X_BLOCKS: 'Удалить блоки: %1', DELETE_ALL_BLOCKS: 'Удалить все блоки (%1)?', CLEAN_UP: 'Упорядочить блоки',
   });
 
   // fill, secondary, stroke per category.
@@ -334,7 +334,7 @@
     if (input) input.value = value;
     // Only ОК is a submit button, so Enter in the name field confirms.
     if (cancel) d.querySelector('[type=button]').onclick = () => d.close();
-    d.addEventListener('close', () => { d.remove(); done(d.returnValue === 'ok', input && input.value); });
+    d.addEventListener('close', () => { d.remove(); document.activeElement.blur(); done(d.returnValue === 'ok', input && input.value); });
     document.body.append(d);
     d.showModal();
     if (input) input.select();
@@ -393,7 +393,7 @@
     Blockly.VerticalFlyout.prototype.DEFAULT_WIDTH = container.clientWidth < 600 ? 170 : 274;
     Blockly.Toolbox.prototype.width = 64 + Blockly.VerticalFlyout.prototype.DEFAULT_WIDTH;
     const workspace = Blockly.inject(container, {
-      media: o.media || 'vendor/media/', toolbox: TOOLBOX, sounds: false, comments: false, trashcan: false, scrollbars: true,
+      media: o.media || 'vendor/media/', toolbox: TOOLBOX, sounds: false, comments: false, trashcan: false, collapse: false, scrollbars: true,
       zoom: { controls: false, wheel: true, startScale: container.clientWidth < 600 ? 0.65 : 0.8 },
       grid: { spacing: 40, length: 2, colour: '#D9D9D9' },
       colours: {
@@ -403,6 +403,7 @@
         operators: four(COL.operators), data: four(COL.data), data_lists: four(COL.data), more: four(COL.more),
       },
     });
+    workspace.cleanUp = function () { let y = 130; this.getTopBlocks(true).forEach((b) => { const at = b.getRelativeToSurfaceXY(); b.moveBy(48 - at.x, y - at.y); y += b.getHeightWidth().height + 140; }); };
     workspace.toolbox_.categoryMenu_.categories_.forEach((c) => {
       c.item_.tabIndex = 0;
       c.item_.setAttribute('role', 'button');

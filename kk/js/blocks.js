@@ -344,9 +344,21 @@
     d.querySelector('span').textContent = text;
     const input = d.querySelector('input');
     if (input) input.value = value;
+    // Decide in the click itself: the close event comes later as its own task, and a busy page can run a click on Play first.
+    let over = false;
+    const finish = (ok) => {
+      if (over) return;
+      over = true;
+      d.close();
+      d.remove();
+      document.activeElement.blur();
+      done(ok, input && input.value);
+    };
     // Only ОК is a submit button, so Enter in the name field confirms.
-    if (cancel) d.querySelector('[type=button]').onclick = () => d.close();
-    d.addEventListener('close', () => { d.remove(); document.activeElement.blur(); done(d.returnValue === 'ok', input && input.value); });
+    d.querySelector('form').addEventListener('submit', (e) => { e.preventDefault(); finish(true); });
+    if (cancel) d.querySelector('[type=button]').onclick = () => finish(false);
+    d.addEventListener('cancel', (e) => { e.preventDefault(); finish(false); });
+    d.addEventListener('close', () => finish(false));
     document.body.append(d);
     d.showModal();
     if (input) input.select();
